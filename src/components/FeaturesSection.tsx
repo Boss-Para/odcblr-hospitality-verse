@@ -1,12 +1,8 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
 import { Phone, MessageSquareText, Briefcase, Clock } from "lucide-react";
-
-// Let's add framer-motion dependency
-<lov-add-dependency>framer-motion@10.16.4</lov-add-dependency>
 
 const FeatureCard = ({ 
   icon, 

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
@@ -228,7 +227,7 @@ const BusinessPlanSection = () => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="month" />
                     <YAxis />
-                    <Tooltip formatter={(value) => `₹${(value/1000000).toFixed(2)}M`} />
+                    <Tooltip formatter={(value: number) => `₹${(value/1000000).toFixed(2)}M`} />
                     <Line 
                       type="monotone" 
                       dataKey="revenue" 

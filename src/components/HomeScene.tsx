@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Html, useGLTF, Text, Float } from "@react-three/drei";
-import { Vector3 } from "three";
+import * as THREE from "three";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
@@ -62,8 +62,8 @@ const Restaurant = ({ position }: { position: [number, number, number] }) => {
 // Student Avatar
 const StudentAvatar = ({ position, speed = 0.05 }: { position: [number, number, number], speed?: number }) => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const [targetPos] = useState(new Vector3().fromArray(position));
-  const [velocity] = useState(new Vector3(Math.random() - 0.5, 0, Math.random() - 0.5).normalize().multiplyScalar(speed));
+  const [targetPos] = useState(new THREE.Vector3().fromArray(position));
+  const [velocity] = useState(new THREE.Vector3(Math.random() - 0.5, 0, Math.random() - 0.5).normalize().multiplyScalar(speed));
   const [clicked, setClicked] = useState(false);
   
   useFrame(() => {
