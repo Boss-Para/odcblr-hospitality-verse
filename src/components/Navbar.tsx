@@ -39,13 +39,13 @@ const Navbar = () => {
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white/90 backdrop-blur-md shadow-md py-2"
-          : "bg-transparent py-4"
+          : "bg-black/30 backdrop-blur-md py-4"
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <span className={`text-2xl font-bold ${isScrolled ? "text-india-blue" : "text-white"}`}>
+            <span className="text-2xl font-bold text-white">
               OdcBlR
             </span>
           </div>
@@ -76,9 +76,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`p-2 rounded-md ${
-                isScrolled ? "text-india-blue" : "text-white"
-              }`}
+              className="p-2 rounded-md text-white"
             >
               {isMobileMenuOpen ? (
                 <X className="h-6 w-6" />
