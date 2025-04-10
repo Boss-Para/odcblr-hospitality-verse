@@ -2,48 +2,57 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Users, Building2, BadgeDollarSign, DollarSign } from "lucide-react";
 
-// Revenue Stream Data
+// Revenue Streams Data
 const revenueStreams = [
-  { name: "Student Subscriptions", value: 6000000, color: "#FF9933", id: "students" },
-  { name: "Client Subscriptions", value: 6000000, color: "#138808", id: "clients" },
-  { name: "Posting Fees", value: 6000000, color: "#000080", id: "posting" },
-  { name: "Hiring Fees", value: 4800000, color: "#9c27b0", id: "hiring" },
+  { name: "Student Subscriptions", value: 6000000, description: "₹100-₹500/month" },
+  { name: "Client Subscriptions", value: 6000000, description: "₹2,000-₹10,000/month" },
+  { name: "Posting Fees", value: 600000, description: "₹500-₹1,000/gig" },
+  { name: "Hiring Fees", value: 480000, description: "₹2,000/role" },
 ];
 
-// Financial Projection Data
-const projectionData = [
-  { month: "Month 1", revenue: 100000, expenses: 250000 },
-  { month: "Month 3", revenue: 500000, expenses: 350000 },
-  { month: "Month 6", revenue: 1200000, expenses: 500000 },
-  { month: "Month 9", revenue: 2500000, expenses: 750000 },
-  { month: "Month 12", revenue: 4000000, expenses: 1000000 },
-  { month: "Month 18", revenue: 12000000, expenses: 1500000 },
+// Projections Data
+const projections = [
+  { name: "Q1", users: 10000, revenue: 1500000 },
+  { name: "Q2", users: 25000, revenue: 3500000 },
+  { name: "Q3", users: 45000, revenue: 6000000 },
+  { name: "Q4", users: 70000, revenue: 10000000 },
+  { name: "Q5", users: 100000, revenue: 15000000 },
+  { name: "Q6", users: 150000, revenue: 25000000 },
+  { name: "Q7", users: 225000, revenue: 40000000 },
+  { name: "Q8", users: 350000, revenue: 65000000 },
 ];
 
-// Subscription Plans
-const studentPlans = [
-  { name: "Basic", price: 100, features: ["5 gigs per month", "Basic profile", "Chat support"] },
-  { name: "Premium", price: 250, features: ["20 gigs per month", "Featured profile", "Priority support", "Skill badges"] },
-  { name: "Enterprise", price: 500, features: ["Unlimited gigs", "Top profile listing", "24/7 support", "Training access"] },
-];
+// Colors
+const COLORS = ["#FF9933", "#138808", "#000080", "#9c27b0", "#e91e63", "#03a9f4"];
+const RADIAN = Math.PI / 180;
 
-const clientPlans = [
-  { name: "Basic", price: 2000, features: ["5 job posts per month", "Basic dashboard", "Email support"] },
-  { name: "Premium", price: 5000, features: ["15 job posts", "Advanced filters", "Priority listing", "Phone support"] },
-  { name: "Enterprise", price: 10000, features: ["Unlimited posts", "Analytics", "Account manager", "API access"] },
-];
+const RevenueCard = ({ 
+  title, 
+  value, 
+  description 
+}: { 
+  title: string; 
+  value: string; 
+  description: string 
+}) => {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      className="bg-white rounded-xl shadow-lg p-4 text-center"
+    >
+      <h3 className="text-india-blue font-bold mb-2">{title}</h3>
+      <p className="text-2xl text-india-saffron font-bold">{value}</p>
+      <p className="text-sm text-gray-600">{description}</p>
+    </motion.div>
+  );
+};
 
-const FinancialSphere = ({ selectedSegment, setSelectedSegment }: { selectedSegment: string; setSelectedSegment: (id: string) => void }) => {
-  const RADIAN = Math.PI / 180;
-  
-  // Calculate total value
+const BusinessPlanSection = () => {
+  const [activeTab, setActiveTab] = useState("revenue"); // revenue, projections
   const total = revenueStreams.reduce((sum, item) => sum + item.value, 0);
   
-  // Custom label
+  // Custom label with properly typed parameters
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: {
     cx: number;
     cy: number;
@@ -51,103 +60,22 @@ const FinancialSphere = ({ selectedSegment, setSelectedSegment }: { selectedSegm
     innerRadius: number;
     outerRadius: number;
     percent: number;
-    index: number;
-    name: string;
+    index?: number;
+    name?: string;
   }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-    
-    // Only show percentages of significant size
-    return percent > 0.05 ? (
-      <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central">
+  
+    return (
+      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
         {`${(percent * 100).toFixed(0)}%`}
       </text>
-    ) : null;
+    );
   };
-  
-  return (
-    <div className="relative h-[400px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Pie
-            data={revenueStreams}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            label={renderCustomizedLabel}
-            outerRadius={120}
-            fill="#8884d8"
-            dataKey="value"
-            onClick={(data) => setSelectedSegment(data.id)}
-          >
-            {revenueStreams.map((entry, index) => (
-              <Cell 
-                key={`cell-${index}`} 
-                fill={entry.color} 
-                stroke={entry.id === selectedSegment ? "#fff" : "none"}
-                strokeWidth={entry.id === selectedSegment ? 3 : 0}
-                className="cursor-pointer hover:opacity-90 transition-opacity"
-              />
-            ))}
-          </Pie>
-          <Tooltip 
-            formatter={(value) => [`₹${(value/1000000).toFixed(1)}M`, 'Annual Revenue']}
-            labelFormatter={(name) => `${name}`}
-          />
-        </PieChart>
-      </ResponsiveContainer>
-      
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.5 }}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full h-40 w-40 flex items-center justify-center text-center p-4 shadow-lg"
-      >
-        <div>
-          <p className="text-gray-600 text-xs">Total Annual Revenue</p>
-          <p className="text-2xl font-bold text-india-blue">₹22.8M</p>
-          <p className="text-xs text-india-saffron mt-1">Click segments for details</p>
-        </div>
-      </motion.div>
-    </div>
-  );
-};
 
-const PlanCard = ({ plan, type }: { plan: typeof studentPlans[0]; type: "student" | "client" }) => {
-  const bgColor = type === "student" ? "bg-india-saffron/10" : "bg-india-green/10";
-  const buttonColor = type === "student" ? "bg-india-saffron" : "bg-india-green";
-  const borderColor = type === "student" ? "border-india-saffron" : "border-india-green";
-  
   return (
-    <motion.div 
-      whileHover={{ y: -5 }}
-      className={`${bgColor} rounded-xl p-6 border ${borderColor} shadow-md`}
-    >
-      <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
-      <p className="text-3xl font-bold mb-4">
-        ₹{plan.price}<span className="text-sm font-normal text-gray-500">/month</span>
-      </p>
-      <ul className="mb-6 space-y-2">
-        {plan.features.map((feature, index) => (
-          <li key={index} className="flex items-center">
-            <div className="h-1.5 w-1.5 rounded-full bg-gray-500 mr-2"></div>
-            {feature}
-          </li>
-        ))}
-      </ul>
-      <Button className={`w-full ${buttonColor} hover:opacity-90 text-white`}>
-        Select Plan
-      </Button>
-    </motion.div>
-  );
-};
-
-const BusinessPlanSection = () => {
-  const [selectedSegment, setSelectedSegment] = useState("students");
-  
-  return (
-    <section id="business-plan" className="py-20 bg-white">
+    <section id="business-plan" className="py-20 bg-gradient-to-b from-gray-100 to-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -160,150 +88,149 @@ const BusinessPlanSection = () => {
             Business <span className="text-india-saffron">Plan</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Scalable revenue, low overhead—your investment, multiplied.
+            Scalable revenue streams, sustainable growth, and profitable returns for investors.
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-india-blue">Revenue Streams</h3>
-            <FinancialSphere selectedSegment={selectedSegment} setSelectedSegment={setSelectedSegment} />
-            
-            <div className="mt-8">
-              <div className="bg-gray-50 rounded-lg p-6 shadow-md">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="h-12 w-12 rounded-full flex items-center justify-center" 
-                    style={{ backgroundColor: revenueStreams.find(stream => stream.id === selectedSegment)?.color }}>
-                    {selectedSegment === "students" && <Users className="h-6 w-6 text-white" />}
-                    {selectedSegment === "clients" && <Building2 className="h-6 w-6 text-white" />}
-                    {selectedSegment === "posting" && <BadgeDollarSign className="h-6 w-6 text-white" />}
-                    {selectedSegment === "hiring" && <DollarSign className="h-6 w-6 text-white" />}
-                  </div>
-                  <h3 className="text-xl font-bold">
-                    {revenueStreams.find(stream => stream.id === selectedSegment)?.name}
-                  </h3>
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="w-full lg:w-1/2">
+            <div className="bg-white rounded-xl shadow-lg p-6 h-full">
+              <div className="flex justify-center mb-6">
+                <div className="flex rounded-lg overflow-hidden">
+                  <button 
+                    className={`px-4 py-2 ${activeTab === 'revenue' ? 'bg-india-saffron text-white' : 'bg-gray-100'}`}
+                    onClick={() => setActiveTab('revenue')}
+                  >
+                    Revenue Streams
+                  </button>
+                  <button 
+                    className={`px-4 py-2 ${activeTab === 'projections' ? 'bg-india-blue text-white' : 'bg-gray-100'}`}
+                    onClick={() => setActiveTab('projections')}
+                  >
+                    Projections
+                  </button>
                 </div>
-                
-                {selectedSegment === "students" && (
-                  <div>
-                    <p className="mb-4">
-                      Monthly subscriptions for students ranging from ₹100-₹500 per month, providing access to gig listings, 
-                      profile features, and app functionality.
-                    </p>
-                    <p className="font-bold">Projection: <span className="text-india-saffron">₹1.2M-₹6M/year</span></p>
-                  </div>
-                )}
-                
-                {selectedSegment === "clients" && (
-                  <div>
-                    <p className="mb-4">
-                      Monthly subscriptions for hospitality venues ranging from ₹2,000-₹10,000 per month, 
-                      with tiered access to posting capabilities, candidate filtering, and analytics.
-                    </p>
-                    <p className="font-bold">Projection: <span className="text-india-green">₹1.2M-₹6M/year</span></p>
-                  </div>
-                )}
-                
-                {selectedSegment === "posting" && (
-                  <div>
-                    <p className="mb-4">
-                      Per-gig posting fees ranging from ₹500-₹1,000 per gig posting.
-                      Estimated 50 gigs per month across all client tiers.
-                    </p>
-                    <p className="font-bold">Projection: <span className="text-india-blue">₹3L-₹6L/year</span></p>
-                  </div>
-                )}
-                
-                {selectedSegment === "hiring" && (
-                  <div>
-                    <p className="mb-4">
-                      One-time fees for permanent role hires at ₹2,000 per successful placement.
-                      Estimated 20 permanent roles filled per month.
-                    </p>
-                    <p className="font-bold">Projection: <span className="text-purple-600">₹4.8L/year</span></p>
-                  </div>
-                )}
               </div>
+              
+              {activeTab === 'revenue' && (
+                <div className="h-[300px]">
+                  <h3 className="text-xl font-bold text-center mb-4">
+                    Revenue Distribution
+                  </h3>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={revenueStreams}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={renderCustomizedLabel}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        {revenueStreams.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip formatter={(value) => [`₹${(Number(value)/1000000).toFixed(1)}M`, 'Revenue']} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              )}
+              
+              {activeTab === 'projections' && (
+                <div className="h-[300px]">
+                  <h3 className="text-xl font-bold text-center mb-4">
+                    Revenue Growth
+                  </h3>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={projections}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis yAxisId="left" orientation="left" stroke="#FF9933" />
+                      <YAxis yAxisId="right" orientation="right" stroke="#000080" />
+                      <Tooltip formatter={(value, name) => {
+                        if (name === 'revenue') return [`₹${(Number(value)/1000000).toFixed(1)}M`, 'Revenue'];
+                        return [value, 'Users'];
+                      }} />
+                      <Line 
+                        yAxisId="left"
+                        type="monotone" 
+                        dataKey="users" 
+                        stroke="#FF9933" 
+                        strokeWidth={2}
+                        name="Users"
+                      />
+                      <Line 
+                        yAxisId="right"
+                        type="monotone" 
+                        dataKey="revenue" 
+                        stroke="#000080" 
+                        strokeWidth={2}
+                        name="Revenue"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              )}
             </div>
           </div>
           
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-india-blue">Financial Projections</h3>
-            <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-              <h4 className="font-bold mb-4">Break-Even Analysis</h4>
-              <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={projectionData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <Tooltip formatter={(value: number) => `₹${(value/1000000).toFixed(2)}M`} />
-                    <Line 
-                      type="monotone" 
-                      dataKey="revenue" 
-                      name="Revenue" 
-                      stroke="#FF9933" 
-                      activeDot={{ r: 8 }} 
-                      strokeWidth={2}
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="expenses" 
-                      name="Expenses" 
-                      stroke="#000080" 
-                      strokeWidth={2}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
+          <div className="w-full lg:w-1/2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="p-4 bg-india-blue text-white rounded-t-xl">
+                <h3 className="font-bold text-xl">Revenue Breakdown</h3>
               </div>
               
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h5 className="font-bold text-gray-800">Initial Investment</h5>
-                  <p className="text-xl font-bold text-india-blue">₹25L</p>
-                  <p className="text-xs text-gray-600">App development, marketing, operations</p>
+              <div className="bg-white rounded-b-xl shadow-lg p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <RevenueCard 
+                    title="Student Subscriptions" 
+                    value="₹1.2M-₹6M/year" 
+                    description="1,000 students at ₹100-₹500/month" 
+                  />
+                  <RevenueCard 
+                    title="Client Subscriptions" 
+                    value="₹1.2M-₹6M/year" 
+                    description="50 clients at ₹2,000-₹10,000/month" 
+                  />
+                  <RevenueCard 
+                    title="Posting Fees" 
+                    value="₹3L-₹6L/year" 
+                    description="50 gigs/month at ₹500-₹1,000/gig" 
+                  />
+                  <RevenueCard 
+                    title="Hiring Fees" 
+                    value="₹4.8L/year" 
+                    description="20 roles/month at ₹2,000/role" 
+                  />
                 </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h5 className="font-bold text-gray-800">Recurring Costs</h5>
-                  <p className="text-xl font-bold text-india-blue">₹10L/year</p>
-                  <p className="text-xs text-gray-600">Cloud infrastructure, support, maintenance</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h5 className="font-bold text-gray-800">Profit (After Year 1)</h5>
-                  <p className="text-xl font-bold text-green-600">₹15L-₹40L/year</p>
-                  <p className="text-xs text-gray-600">Scalable with minimal additional costs</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h5 className="font-bold text-gray-800">Break-Even Timeline</h5>
-                  <p className="text-xl font-bold text-india-saffron">12-18 months</p>
-                  <p className="text-xs text-gray-600">Based on conservative growth models</p>
+                
+                <div className="mt-6 p-4 border-t border-gray-200">
+                  <div className="flex justify-between mb-2">
+                    <span className="font-bold">Initial Investment:</span>
+                    <span className="text-india-blue">₹25 Lakhs</span>
+                  </div>
+                  <div className="flex justify-between mb-2">
+                    <span className="font-bold">Recurring Costs:</span>
+                    <span className="text-india-blue">₹10 Lakhs/year</span>
+                  </div>
+                  <div className="flex justify-between mb-2">
+                    <span className="font-bold">Year 1 Profit:</span>
+                    <span className="text-india-saffron">₹15-40 Lakhs</span>
+                  </div>
+                  <div className="flex justify-between mb-2">
+                    <span className="font-bold">Break-even:</span>
+                    <span className="text-india-green">12-18 months</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            <div>
-              <h3 className="text-2xl font-bold mb-6 text-india-blue">Subscription Model</h3>
-              <Tabs defaultValue="student" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="student">Student Plans</TabsTrigger>
-                  <TabsTrigger value="client">Client Plans</TabsTrigger>
-                </TabsList>
-                <TabsContent value="student" className="mt-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {studentPlans.map((plan, index) => (
-                      <PlanCard key={index} plan={plan} type="student" />
-                    ))}
-                  </div>
-                </TabsContent>
-                <TabsContent value="client" className="mt-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {clientPlans.map((plan, index) => (
-                      <PlanCard key={index} plan={plan} type="client" />
-                    ))}
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

@@ -25,7 +25,11 @@ const Navbar = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const offsetTop = element.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: offsetTop - 80, // Offset for navbar height
+        behavior: "smooth"
+      });
     }
     setIsMobileMenuOpen(false);
   };

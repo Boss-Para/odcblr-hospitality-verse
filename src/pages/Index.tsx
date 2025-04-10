@@ -27,17 +27,27 @@ const Index = () => {
       {/* Navbar */}
       <Navbar />
       
-      {/* Hero Section with 3D Scene */}
-      <section className="h-screen relative">
+      {/* Hero Section with 3D Scene - reduced to 90vh instead of 100vh (h-screen) */}
+      <section className="h-[90vh] relative">
         <HomeScene />
       </section>
       
-      {/* Content Sections */}
-      <FeaturesSection />
-      <HowItWorksSection />
-      <MarketPotentialSection />
-      <BusinessPlanSection />
-      <InvestorPitchSection />
+      {/* Content Sections - start immediately after hero section */}
+      <div id="features">
+        <FeaturesSection />
+      </div>
+      <div id="how-it-works">
+        <HowItWorksSection />
+      </div>
+      <div id="market-potential">
+        <MarketPotentialSection />
+      </div>
+      <div id="business-plan">
+        <BusinessPlanSection />
+      </div>
+      <div id="investor-pitch">
+        <InvestorPitchSection />
+      </div>
       
       {/* Footer */}
       <Footer />
