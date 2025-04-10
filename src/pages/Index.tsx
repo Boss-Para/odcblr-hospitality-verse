@@ -1,12 +1,46 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useEffect } from "react";
+import Navbar from "@/components/Navbar";
+import HomeScene from "@/components/HomeScene";
+import FeaturesSection from "@/components/FeaturesSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
+import MarketPotentialSection from "@/components/MarketPotentialSection";
+import BusinessPlanSection from "@/components/BusinessPlanSection";
+import InvestorPitchSection from "@/components/InvestorPitchSection";
+import Footer from "@/components/Footer";
+import { toast } from "sonner";
 
 const Index = () => {
+  // Welcome toast on initial load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      toast.success("Welcome to OdcBlR", {
+        description: "Explore India's revolutionary hospitality gig platform",
+      });
+    }, 1000);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen">
+      {/* Navbar */}
+      <Navbar />
+      
+      {/* Hero Section with 3D Scene */}
+      <section className="h-screen relative">
+        <HomeScene />
+      </section>
+      
+      {/* Content Sections */}
+      <FeaturesSection />
+      <HowItWorksSection />
+      <MarketPotentialSection />
+      <BusinessPlanSection />
+      <InvestorPitchSection />
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
