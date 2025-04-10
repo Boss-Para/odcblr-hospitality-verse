@@ -40,7 +40,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-india-saffron" />
-                <span>invest@odcblr.com</span>
+                <span>starshape2025@gmail.com</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-india-saffron" />
@@ -48,7 +48,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-india-saffron" />
-                <span>Koramangala, Bangalore<br/>Karnataka, India</span>
+                <span>Bangalore<br/>Karnataka, India</span>
               </li>
             </ul>
             

@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
 
@@ -9,18 +9,6 @@ const revenueStreams = [
   { name: "Client Subscriptions", value: 6000000, description: "₹2,000-₹10,000/month" },
   { name: "Posting Fees", value: 600000, description: "₹500-₹1,000/gig" },
   { name: "Hiring Fees", value: 480000, description: "₹2,000/role" },
-];
-
-// Projections Data
-const projections = [
-  { name: "Q1", users: 10000, revenue: 1500000 },
-  { name: "Q2", users: 25000, revenue: 3500000 },
-  { name: "Q3", users: 45000, revenue: 6000000 },
-  { name: "Q4", users: 70000, revenue: 10000000 },
-  { name: "Q5", users: 100000, revenue: 15000000 },
-  { name: "Q6", users: 150000, revenue: 25000000 },
-  { name: "Q7", users: 225000, revenue: 40000000 },
-  { name: "Q8", users: 350000, revenue: 65000000 },
 ];
 
 // Colors
@@ -49,7 +37,6 @@ const RevenueCard = ({
 };
 
 const BusinessPlanSection = () => {
-  const [activeTab, setActiveTab] = useState("revenue"); // revenue, projections
   const total = revenueStreams.reduce((sum, item) => sum + item.value, 0);
   
   // Custom label with properly typed parameters
@@ -95,85 +82,30 @@ const BusinessPlanSection = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="w-full lg:w-1/2">
             <div className="bg-white rounded-xl shadow-lg p-6 h-full">
-              <div className="flex justify-center mb-6">
-                <div className="flex rounded-lg overflow-hidden">
-                  <button 
-                    className={`px-4 py-2 ${activeTab === 'revenue' ? 'bg-india-saffron text-white' : 'bg-gray-100'}`}
-                    onClick={() => setActiveTab('revenue')}
-                  >
-                    Revenue Streams
-                  </button>
-                  <button 
-                    className={`px-4 py-2 ${activeTab === 'projections' ? 'bg-india-blue text-white' : 'bg-gray-100'}`}
-                    onClick={() => setActiveTab('projections')}
-                  >
-                    Projections
-                  </button>
-                </div>
+              <h3 className="text-xl font-bold text-center mb-4">
+                Revenue Distribution
+              </h3>
+              <div className="h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={revenueStreams}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={renderCustomizedLabel}
+                      outerRadius={100}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {revenueStreams.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value) => [`₹${(Number(value)/1000000).toFixed(1)}M`, 'Revenue']} />
+                  </PieChart>
+                </ResponsiveContainer>
               </div>
-              
-              {activeTab === 'revenue' && (
-                <div className="h-[300px]">
-                  <h3 className="text-xl font-bold text-center mb-4">
-                    Revenue Distribution
-                  </h3>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={revenueStreams}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={renderCustomizedLabel}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                      >
-                        {revenueStreams.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip formatter={(value) => [`₹${(Number(value)/1000000).toFixed(1)}M`, 'Revenue']} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-              )}
-              
-              {activeTab === 'projections' && (
-                <div className="h-[300px]">
-                  <h3 className="text-xl font-bold text-center mb-4">
-                    Revenue Growth
-                  </h3>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={projections}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis yAxisId="left" orientation="left" stroke="#FF9933" />
-                      <YAxis yAxisId="right" orientation="right" stroke="#000080" />
-                      <Tooltip formatter={(value, name) => {
-                        if (name === 'revenue') return [`₹${(Number(value)/1000000).toFixed(1)}M`, 'Revenue'];
-                        return [value, 'Users'];
-                      }} />
-                      <Line 
-                        yAxisId="left"
-                        type="monotone" 
-                        dataKey="users" 
-                        stroke="#FF9933" 
-                        strokeWidth={2}
-                        name="Users"
-                      />
-                      <Line 
-                        yAxisId="right"
-                        type="monotone" 
-                        dataKey="revenue" 
-                        stroke="#000080" 
-                        strokeWidth={2}
-                        name="Revenue"
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              )}
             </div>
           </div>
           

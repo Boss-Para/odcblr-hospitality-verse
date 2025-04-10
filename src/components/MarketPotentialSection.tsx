@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, Area, AreaChart } from "recharts";
-import { MapPin, TrendingUp, Users, Building } from "lucide-react";
+import { MapPin, TrendingUp, Users, Building, Clock, Shield, Timer } from "lucide-react";
 
 // City Data
 const cityData = [
@@ -16,10 +16,9 @@ const cityData = [
 
 // Revenue Data
 const revenueData = [
-  { name: "Hotels", value: 18000 },
-  { name: "Restaurants", value: 15000 },
-  { name: "Catering", value: 10000 },
-  { name: "Events", value: 7000 },
+  { name: "Hotels", value: 100000 },
+  { name: "Restaurants", value: 2000000 },
+  { name: "Catering", value: 400000 },
 ];
 
 // Growth Data
@@ -74,14 +73,24 @@ const IndiaMap = ({ activeCity, setActiveCity }: { activeCity: number; setActive
     <div className="relative h-[400px] w-full bg-gradient-to-b from-blue-50 to-blue-100 rounded-xl overflow-hidden shadow-inner">
       <div className="absolute inset-0 bg-[url('https://upload.wikimedia.org/wikipedia/commons/e/e4/India_location_map.svg')] bg-contain bg-center bg-no-repeat opacity-30"></div>
       
-      {/* 3D effect for the map */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 z-10"></div>
+      {/* Enhanced 3D effect for the map */}
+      <motion.div 
+        className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 z-10"
+        animate={{
+          background: [
+            "linear-gradient(to top right, transparent, rgba(255,255,255,0.1), rgba(255,255,255,0.3))",
+            "linear-gradient(to top right, transparent, rgba(255,255,255,0.15), rgba(255,255,255,0.35))",
+            "linear-gradient(to top right, transparent, rgba(255,255,255,0.1), rgba(255,255,255,0.3))"
+          ]
+        }}
+        transition={{ duration: 3, repeat: Infinity }}
+      />
       
       {/* City Markers */}
       {cityData.map((city, index) => (
         <motion.div
           key={city.name}
-          className={`absolute h-4 w-4 rounded-full cursor-pointer z-20 transform -translate-x-1/2 -translate-y-1/2`}
+          className={`absolute h-5 w-5 rounded-full cursor-pointer z-20 transform -translate-x-1/2 -translate-y-1/2`}
           style={{
             top: `${(1 - (city.lat - 10) / 30) * 90}%`,
             left: `${((city.lng - 70) / 20) * 80 + 10}%`,
@@ -89,8 +98,12 @@ const IndiaMap = ({ activeCity, setActiveCity }: { activeCity: number; setActive
           }}
           whileHover={{ scale: 1.5 }}
           animate={{ 
-            scale: activeCity === index ? 1.5 : 1,
+            scale: activeCity === index ? [1.2, 1.5, 1.2] : 1,
             boxShadow: activeCity === index ? '0 0 15px 5px rgba(255, 153, 51, 0.5)' : 'none'
+          }}
+          transition={{ 
+            repeat: activeCity === index ? Infinity : undefined, 
+            duration: 1.5 
           }}
           onClick={() => setActiveCity(index)}
         >
@@ -98,7 +111,7 @@ const IndiaMap = ({ activeCity, setActiveCity }: { activeCity: number; setActive
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="absolute -top-16 -left-16 bg-white p-2 rounded-lg shadow-lg w-32 z-30"
+              className="absolute -top-20 -left-16 bg-white p-2 rounded-lg shadow-lg w-32 z-30"
             >
               <p className="font-bold text-xs text-india-blue">{city.name}</p>
               <div className="flex items-center text-xs text-gray-600">
@@ -114,7 +127,7 @@ const IndiaMap = ({ activeCity, setActiveCity }: { activeCity: number; setActive
         </motion.div>
       ))}
       
-      {/* Connections between cities - creates a network effect */}
+      {/* Enhanced connections between cities - creates a network effect */}
       <svg className="absolute inset-0 z-0 w-full h-full">
         {cityData.map((city, i) => (
           cityData.slice(i + 1).map((otherCity, j) => (
@@ -136,13 +149,82 @@ const IndiaMap = ({ activeCity, setActiveCity }: { activeCity: number; setActive
         ))}
       </svg>
       
-      <div className="absolute bottom-6 right-6 bg-white/90 p-4 rounded-lg shadow-lg">
+      <motion.div 
+        className="absolute bottom-6 right-6 bg-white/90 p-4 rounded-lg shadow-lg"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
         <h3 className="font-bold text-india-blue">OdcBlR Market</h3>
         <p className="text-india-saffron text-sm font-bold">₹50,000 Cr Industry</p>
-        <p className="text-gray-600 text-xs">1M+ hospitality students</p>
-        <p className="text-gray-600 text-xs">70K+ venues nationwide</p>
-      </div>
+        <p className="text-gray-600 text-xs">3.5L+ hospitality students</p>
+        <p className="text-gray-600 text-xs">2M+ venues nationwide</p>
+      </motion.div>
     </div>
+  );
+};
+
+// New Payment Guarantee Component
+const PaymentGuarantee = () => {
+  return (
+    <motion.div 
+      className="bg-white rounded-xl shadow-xl p-6"
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 300 }}
+    >
+      <h3 className="text-xl font-bold text-india-blue mb-4 flex items-center">
+        <Shield className="w-6 h-6 text-india-saffron mr-2" />
+        Payment Guarantee System
+      </h3>
+      
+      <div className="flex flex-col space-y-4">
+        <div className="flex items-start">
+          <div className="bg-india-saffron/10 p-3 rounded-full mr-4 flex-shrink-0">
+            <Clock className="h-6 w-6 text-india-saffron" />
+          </div>
+          <div>
+            <h4 className="font-bold">Real-time Payment Tracking</h4>
+            <p className="text-gray-600 text-sm">Monitor your earnings in real-time with blockchain verification</p>
+          </div>
+        </div>
+        
+        <div className="flex items-start">
+          <div className="bg-india-green/10 p-3 rounded-full mr-4 flex-shrink-0">
+            <Timer className="h-6 w-6 text-india-green" />
+          </div>
+          <div>
+            <h4 className="font-bold">Automated Escrow Release</h4>
+            <p className="text-gray-600 text-sm">Funds are released automatically based on shift completion verification</p>
+          </div>
+        </div>
+        
+        <div className="flex items-start">
+          <div className="bg-india-blue/10 p-3 rounded-full mr-4 flex-shrink-0">
+            <Shield className="h-6 w-6 text-india-blue" />
+          </div>
+          <div>
+            <h4 className="font-bold">Dispute Resolution</h4>
+            <p className="text-gray-600 text-sm">Fair and transparent system for resolving payment disputes</p>
+          </div>
+        </div>
+      </div>
+      
+      <div className="mt-4">
+        <div className="w-full bg-gray-200 rounded-full h-2 mb-1">
+          <motion.div 
+            className="bg-india-saffron h-2 rounded-full" 
+            initial={{ width: "0%" }}
+            animate={{ width: "100%" }}
+            transition={{ 
+              repeat: Infinity,
+              duration: 3,
+              ease: "linear"
+            }}
+          />
+        </div>
+        <p className="text-xs text-gray-500 text-center">Average payment processing time: 24 hours</p>
+      </div>
+    </motion.div>
   );
 };
 
@@ -170,7 +252,7 @@ const MarketPotentialSection = () => {
         
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="w-full lg:w-1/2">
-            {/* 3D styled India Map */}
+            {/* Enhanced 3D styled India Map */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -206,6 +288,11 @@ const MarketPotentialSection = () => {
                   onClick={() => setActiveCity(index)} 
                 />
               ))}
+            </div>
+            
+            {/* Payment Guarantee Component */}
+            <div className="mt-8">
+              <PaymentGuarantee />
             </div>
           </div>
           
@@ -268,7 +355,7 @@ const MarketPotentialSection = () => {
                 {activeTab === 'revenue' && (
                   <>
                     <h3 className="text-xl font-bold text-center mb-4">
-                      Revenue by Segment (₹ Crore)
+                      Revenue by Segment
                     </h3>
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
@@ -286,7 +373,12 @@ const MarketPotentialSection = () => {
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>
-                        <Tooltip formatter={(value) => [`₹${value} Crore`, 'Revenue']} />
+                        <Tooltip formatter={(value, name) => {
+                          if (name === "Hotels") return [`${(value/1000).toFixed(0)}K Hotels`, name];
+                          if (name === "Restaurants") return [`${(value/1000000).toFixed(1)}M Restaurants`, name];
+                          if (name === "Catering") return [`${(value/1000).toFixed(0)}K Catering Services`, name];
+                          return [value, name];
+                        }} />
                       </PieChart>
                     </ResponsiveContainer>
                   </>
@@ -366,7 +458,7 @@ const MarketPotentialSection = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-india-blue font-bold">Total Addressable Market:</p>
-                    <p className="text-2xl font-bold text-india-saffron">1M+ Students • 70K+ Venues</p>
+                    <p className="text-2xl font-bold text-india-saffron">3.5L+ Students • 2M+ Venues</p>
                   </div>
                   <div className="flex items-center bg-white/80 p-3 rounded-lg shadow-md">
                     <TrendingUp className="h-8 w-8 text-india-green mr-2" />
@@ -376,7 +468,6 @@ const MarketPotentialSection = () => {
                     </div>
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm mt-2">Tap into India's growing gig economy with OdcBlR</p>
               </div>
             </div>
           </div>

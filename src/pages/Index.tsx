@@ -81,7 +81,7 @@ const Index = () => {
         </motion.div>
       </section>
 
-      {/* Secondary Hero Content with Stats - NEW SECTION */}
+      {/* Secondary Hero Content with Stats - UPDATED SECTION */}
       <section id="hero-content" className="py-16 bg-gradient-to-b from-india-blue/10 to-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -119,20 +119,20 @@ const Index = () => {
             </div>
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-xl shadow-lg">
-                <div className="text-4xl font-bold text-india-saffron mb-2">12K+</div>
+                <div className="text-4xl font-bold text-india-saffron mb-2">3.5L+</div>
                 <div className="font-medium text-gray-600">Students Registered</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg">
-                <div className="text-4xl font-bold text-india-green mb-2">580+</div>
-                <div className="font-medium text-gray-600">Partner Hotels</div>
+                <div className="text-4xl font-bold text-india-green mb-2">100K+</div>
+                <div className="font-medium text-gray-600">Hotels</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg">
                 <div className="text-4xl font-bold text-india-blue mb-2">₹15M</div>
                 <div className="font-medium text-gray-600">Monthly Payouts</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg">
-                <div className="text-4xl font-bold text-india-saffron mb-2">7</div>
-                <div className="font-medium text-gray-600">Cities & Growing</div>
+                <div className="text-4xl font-bold text-india-saffron mb-2">20L+</div>
+                <div className="font-medium text-gray-600">Restaurants</div>
               </div>
             </div>
           </div>
