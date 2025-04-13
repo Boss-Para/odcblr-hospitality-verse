@@ -52,7 +52,23 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
+              className="relative"
             >
+              {/* Gold gradient background for logo and text */}
+              <div 
+                className="absolute inset-0 -mx-4 -my-6 md:-my-8 rounded-2xl bg-gradient-to-r from-india-saffron/20 to-india-blue/20 backdrop-blur-sm"
+                style={{
+                  backgroundImage: "url('/lovable-uploads/a9a230d3-dfc8-463f-bd51-aaf31e59927d.png')",
+                  backgroundSize: "180px",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  boxShadow: "0 0 50px rgba(255, 153, 51, 0.3), inset 0 0 30px rgba(0, 0, 128, 0.2)",
+                  opacity: 0.9,
+                  transform: "scale(1.1)",
+                  zIndex: -1
+                }}
+              ></div>
+
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
                 OdcBlR
               </h1>
