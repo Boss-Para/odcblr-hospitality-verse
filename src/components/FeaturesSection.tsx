@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
@@ -28,35 +28,24 @@ const FeatureCard = ({
 };
 
 const BlockchainCube = () => {
-  const [isRotated, setIsRotated] = useState(false);
-  
   return (
     <motion.div
       whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      animate={{ rotateY: isRotated ? 180 : 0 }}
-      transition={{ duration: 0.8 }}
-      onClick={() => setIsRotated(!isRotated)}
+      whileTap={{ scale: 0.95 }}
       className="w-64 h-64 cursor-pointer perspective-1000"
     >
-      <div className="w-full h-full relative preserve-3d">
-        <div className="absolute w-full h-full backface-hidden bg-india-saffron rounded-xl flex flex-col justify-center items-center p-6">
+      <div className="w-full h-full relative">
+        <div className="absolute w-full h-full bg-india-saffron rounded-xl flex flex-col justify-center items-center p-6">
           <div className="text-white text-center">
             <h3 className="font-bold text-2xl mb-4">Smart Contract</h3>
             <p>Secure, transparent blockchain technology powers every gig.</p>
-            <p className="mt-4 text-sm">Click to see contract details</p>
-          </div>
-        </div>
-        <div className="absolute w-full h-full backface-hidden rotateY-180 bg-india-green rounded-xl flex flex-col justify-center items-center p-6">
-          <div className="text-white text-center">
-            <h3 className="font-bold text-xl mb-2">Contract Clauses</h3>
-            <ul className="text-sm text-left space-y-2">
+            <p className="mt-4 text-sm">Contract details</p>
+            <ul className="text-sm text-left space-y-2 mt-2">
               <li>• Overtime: +50% after 8 hours</li>
               <li>• Cancellation: 4hr notice required</li>
               <li>• Dispute Resolution: 24hr response</li>
               <li>• Payment: 15-day guarantee</li>
             </ul>
-            <p className="mt-4 text-xs">Click to flip back</p>
           </div>
         </div>
       </div>
@@ -65,14 +54,10 @@ const BlockchainCube = () => {
 };
 
 const WalletDemo = () => {
-  const [isActive, setIsActive] = useState(false);
-  
   return (
     <motion.div 
       className="relative w-80 h-80"
-      animate={{ rotateY: isActive ? 360 : 0 }}
-      transition={{ duration: 1.5 }}
-      onClick={() => setIsActive(!isActive)}
+      whileHover={{ scale: 1.05 }}
     >
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-white rounded-xl shadow-lg p-6">
         <div className="h-40 w-40 rounded-full bg-gradient-to-r from-india-saffron to-india-green flex items-center justify-center mb-6">
@@ -84,57 +69,13 @@ const WalletDemo = () => {
         <div className="space-y-2 text-center">
           <p className="font-bold text-xl">Dual Wallet System</p>
           <p className="text-sm text-gray-600">Escrow + Personal Wallet</p>
-          <p className="text-xs text-india-saffron">Click to see payment flow</p>
+          <div className="flex justify-around mt-4">
+            <div className="bg-india-blue text-white px-3 py-1 rounded text-xs">Client</div>
+            <div className="bg-india-saffron text-white px-3 py-1 rounded text-xs">Escrow</div>
+            <div className="bg-india-green text-white px-3 py-1 rounded text-xs">Student</div>
+          </div>
         </div>
       </div>
-      
-      {isActive && (
-        <motion.div 
-          className="absolute inset-0 flex flex-col items-center justify-center bg-white rounded-xl shadow-lg p-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <div className="relative w-full h-40 mb-6">
-            <motion.div 
-              className="absolute top-0 left-10 h-12 w-24 rounded-lg bg-india-blue text-white flex items-center justify-center"
-              animate={{ y: [0, 20, 40] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            >
-              Client
-            </motion.div>
-            
-            <motion.div 
-              className="absolute top-12 left-1/2 transform -translate-x-1/2 h-12 w-32 rounded-lg bg-india-saffron text-white flex items-center justify-center"
-            >
-              Escrow
-            </motion.div>
-            
-            <motion.div 
-              className="absolute bottom-0 right-10 h-12 w-24 rounded-lg bg-india-green text-white flex items-center justify-center"
-              animate={{ y: [40, 20, 0] }}
-              transition={{ repeat: Infinity, duration: 2, delay: 1 }}
-            >
-              Student
-            </motion.div>
-            
-            <motion.div 
-              className="absolute h-2 w-2 rounded-full bg-india-saffron"
-              initial={{ x: 22, y: 6 }}
-              animate={{ 
-                x: [22, 120, 220],
-                y: [6, 26, 46],
-              }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            />
-          </div>
-          
-          <div className="text-center">
-            <p className="font-bold">Secure Payment Flow</p>
-            <p className="text-xs text-gray-600">Funds held in escrow until job completion</p>
-            <p className="text-xs text-india-saffron mt-4">Click to see wallet</p>
-          </div>
-        </motion.div>
-      )}
     </motion.div>
   );
 };

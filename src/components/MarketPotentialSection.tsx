@@ -1,8 +1,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, Area, AreaChart } from "recharts";
-import { MapPin, TrendingUp, Users, Building, Clock, Shield, Timer } from "lucide-react";
+import { MapPin, Users, Building, Shield, Clock, Timer } from "lucide-react";
 
 // City Data
 const cityData = [
@@ -13,34 +12,6 @@ const cityData = [
   { name: "Hyderabad", students: 180000, venues: 10000, value: 180000, lat: 17.3, lng: 78.4 },
   { name: "Kolkata", students: 120000, venues: 7000, value: 120000, lat: 22.5, lng: 88.3 },
 ];
-
-// Revenue Data - Updated with accurate numbers
-const revenueData = [
-  { name: "Hotels", value: 100000 },
-  { name: "Restaurants", value: 2000000 },
-  { name: "Catering", value: 400000 },
-];
-
-// Growth Data
-const growthData = [
-  { name: "Year 1", users: 50000, revenue: 15 },
-  { name: "Year 2", users: 150000, revenue: 45 },
-  { name: "Year 3", users: 350000, revenue: 120 },
-  { name: "Year 4", users: 750000, revenue: 250 },
-  { name: "Year 5", users: 1500000, revenue: 500 },
-];
-
-// New market trends data
-const trendsData = [
-  { year: "2021", demand: 30, supply: 45 },
-  { year: "2022", demand: 40, supply: 43 },
-  { year: "2023", demand: 55, supply: 40 },
-  { year: "2024", demand: 75, supply: 37 },
-  { year: "2025", demand: 90, supply: 35 },
-];
-
-// Colors
-const COLORS = ["#FF9933", "#138808", "#000080", "#9c27b0", "#e91e63", "#03a9f4"];
 
 const CityCard = ({ 
   city, 
@@ -164,7 +135,7 @@ const IndiaMap = ({ activeCity, setActiveCity }: { activeCity: number; setActive
   );
 };
 
-// Redesigned Payment Guarantee Component
+// Redesigned Payment Guarantee Component without progress bars
 const PaymentGuarantee = () => {
   return (
     <motion.div 
@@ -185,18 +156,6 @@ const PaymentGuarantee = () => {
           <div>
             <h4 className="font-bold text-lg">Real-time Payment Tracking</h4>
             <p className="text-gray-600">Monitor your earnings in real-time with blockchain verification</p>
-            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-              <motion.div 
-                className="bg-india-saffron h-2 rounded-full" 
-                initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{ 
-                  repeat: Infinity,
-                  duration: 2,
-                  ease: "linear"
-                }}
-              />
-            </div>
           </div>
         </div>
         
@@ -207,18 +166,6 @@ const PaymentGuarantee = () => {
           <div>
             <h4 className="font-bold text-lg">Automated Escrow Release</h4>
             <p className="text-gray-600">Funds are released automatically based on shift completion verification</p>
-            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-              <motion.div 
-                className="bg-india-green h-2 rounded-full" 
-                initial={{ width: "0%" }}
-                animate={{ width: "75%" }}
-                transition={{ 
-                  repeat: Infinity,
-                  duration: 3,
-                  ease: "easeInOut"
-                }}
-              />
-            </div>
           </div>
         </div>
         
@@ -229,18 +176,6 @@ const PaymentGuarantee = () => {
           <div>
             <h4 className="font-bold text-lg">Dispute Resolution</h4>
             <p className="text-gray-600">Fair and transparent system for resolving payment disputes</p>
-            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-              <motion.div 
-                className="bg-india-blue h-2 rounded-full" 
-                initial={{ width: "0%" }}
-                animate={{ width: "90%" }}
-                transition={{ 
-                  repeat: Infinity,
-                  duration: 4,
-                  ease: "easeOut"
-                }}
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -254,7 +189,6 @@ const PaymentGuarantee = () => {
 
 const MarketPotentialSection = () => {
   const [activeCity, setActiveCity] = useState(1); // Mumbai by default
-  const [activeTab, setActiveTab] = useState("market"); // market, revenue, growth, trends
   
   return (
     <section className="py-20 bg-gradient-to-b from-white to-gray-100">
@@ -322,175 +256,36 @@ const MarketPotentialSection = () => {
           
           <div className="w-full lg:w-1/2">
             <div className="bg-white rounded-xl shadow-xl p-6 h-full">
-              <div className="flex justify-center mb-6">
-                <div className="flex rounded-lg overflow-hidden">
-                  <button 
-                    className={`px-4 py-2 ${activeTab === 'market' ? 'bg-india-saffron text-white' : 'bg-gray-100'}`}
-                    onClick={() => setActiveTab('market')}
-                  >
-                    Market Size
-                  </button>
-                  <button 
-                    className={`px-4 py-2 ${activeTab === 'revenue' ? 'bg-india-green text-white' : 'bg-gray-100'}`}
-                    onClick={() => setActiveTab('revenue')}
-                  >
-                    Revenue Sources
-                  </button>
-                  <button 
-                    className={`px-4 py-2 ${activeTab === 'trends' ? 'bg-india-blue text-white' : 'bg-gray-100'}`}
-                    onClick={() => setActiveTab('trends')}
-                  >
-                    Market Trends
-                  </button>
-                  <button 
-                    className={`px-4 py-2 ${activeTab === 'growth' ? 'bg-purple-600 text-white' : 'bg-gray-100'}`}
-                    onClick={() => setActiveTab('growth')}
-                  >
-                    Growth
-                  </button>
+              <h3 className="text-xl font-bold text-india-blue mb-6 text-center">
+                Hospitality Market Overview
+              </h3>
+              
+              <div className="space-y-6">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-bold text-india-saffron">Student Workforce</h4>
+                  <p className="text-gray-700 mt-2">Over 3.5 lakh hospitality students graduate yearly, seeking practical experience and income opportunities.</p>
+                </div>
+                
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-bold text-india-green">Venue Demand</h4>
+                  <p className="text-gray-700 mt-2">Our platform connects talent to approximately 1 lakh hotels, 20 lakh restaurants, and 3-5 lakh catering services nationwide.</p>
+                </div>
+                
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-bold text-india-blue">Market Gap</h4>
+                  <p className="text-gray-700 mt-2">The hospitality industry faces a 35% staff shortage during peak seasons, creating a massive opportunity for on-demand staffing.</p>
+                </div>
+                
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-bold text-purple-600">Growth Trajectory</h4>
+                  <p className="text-gray-700 mt-2">With a 32% year-over-year growth in the gig economy and increasing adoption of digital platforms, OdcBlR is positioned for exponential growth.</p>
                 </div>
               </div>
               
-              <div className="h-[350px]">
-                {activeTab === 'market' && (
-                  <>
-                    <h3 className="text-xl font-bold text-center mb-4">
-                      Hospitality Students by City
-                    </h3>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={cityData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip formatter={(value) => [`${value.toLocaleString()} students`, 'Students']} />
-                        <Bar dataKey="students">
-                          {cityData.map((entry, index) => (
-                            <Cell 
-                              key={`cell-${index}`} 
-                              fill={index === activeCity ? '#FF9933' : COLORS[index % COLORS.length]} 
-                            />
-                          ))}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </>
-                )}
-                
-                {activeTab === 'revenue' && (
-                  <>
-                    <h3 className="text-xl font-bold text-center mb-4">
-                      Revenue by Segment
-                    </h3>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={revenueData}
-                          cx="50%"
-                          cy="50%"
-                          labelLine={true}
-                          label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                          outerRadius={100}
-                          fill="#8884d8"
-                          dataKey="value"
-                        >
-                          {revenueData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                          ))}
-                        </Pie>
-                        <Tooltip formatter={(value, name) => {
-                          if (name === "Hotels") return [`~1,00,000 Hotels`, name];
-                          if (name === "Restaurants") return [`~20,00,000 Restaurants`, name];
-                          if (name === "Catering") return [`~3,00,000 to 5,00,000 Services`, name];
-                          return [value, name];
-                        }} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </>
-                )}
-                
-                {activeTab === 'trends' && (
-                  <>
-                    <h3 className="text-xl font-bold text-center mb-4">
-                      Labor Market Trends
-                    </h3>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <AreaChart
-                        data={trendsData}
-                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="year" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <defs>
-                          <linearGradient id="colorDemand" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#FF9933" stopOpacity={0.8}/>
-                            <stop offset="95%" stopColor="#FF9933" stopOpacity={0}/>
-                          </linearGradient>
-                          <linearGradient id="colorSupply" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#000080" stopOpacity={0.8}/>
-                            <stop offset="95%" stopColor="#000080" stopOpacity={0}/>
-                          </linearGradient>
-                        </defs>
-                        <Area type="monotone" dataKey="demand" stroke="#FF9933" fillOpacity={1} fill="url(#colorDemand)" name="Labor Demand" />
-                        <Area type="monotone" dataKey="supply" stroke="#000080" fillOpacity={1} fill="url(#colorSupply)" name="Labor Supply" />
-                      </AreaChart>
-                    </ResponsiveContainer>
-                    <p className="text-center mt-2 text-sm text-gray-600">
-                      Growing gap between labor demand and supply presents massive opportunity
-                    </p>
-                  </>
-                )}
-                
-                {activeTab === 'growth' && (
-                  <>
-                    <h3 className="text-xl font-bold text-center mb-4">
-                      Projected Growth
-                    </h3>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={growthData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis yAxisId="left" orientation="left" stroke="#FF9933" />
-                        <YAxis yAxisId="right" orientation="right" stroke="#000080" />
-                        <Tooltip />
-                        <Legend />
-                        <Bar yAxisId="left" dataKey="users" name="Users" fill="#FF9933">
-                          {growthData.map((entry, index) => (
-                            <Cell 
-                              key={`cell-${index}`} 
-                              fill={`rgba(255, 153, 51, ${0.4 + index * 0.1})`} 
-                            />
-                          ))}
-                        </Bar>
-                        <Bar yAxisId="right" dataKey="revenue" name="Revenue (₹ Crore)" fill="#000080">
-                          {growthData.map((entry, index) => (
-                            <Cell 
-                              key={`cell-${index}`} 
-                              fill={`rgba(0, 0, 128, ${0.4 + index * 0.1})`} 
-                            />
-                          ))}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </>
-                )}
-              </div>
-              
               <div className="mt-6 p-4 bg-gradient-to-r from-india-saffron/10 to-india-blue/10 rounded-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-india-blue font-bold">Total Addressable Market:</p>
-                    <p className="text-2xl font-bold text-india-saffron">3.5L+ Students • 21L+ Venues</p>
-                  </div>
-                  <div className="flex items-center bg-white/80 p-3 rounded-lg shadow-md">
-                    <TrendingUp className="h-8 w-8 text-india-green mr-2" />
-                    <div>
-                      <p className="text-sm font-bold text-india-blue">YoY Growth</p>
-                      <p className="text-xl font-bold text-india-green">32%</p>
-                    </div>
-                  </div>
+                <div className="text-center">
+                  <p className="text-india-blue font-bold">Total Addressable Market:</p>
+                  <p className="text-2xl font-bold text-india-saffron">3.5L+ Students • 21L+ Venues</p>
                 </div>
               </div>
             </div>

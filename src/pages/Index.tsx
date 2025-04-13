@@ -127,12 +127,12 @@ const Index = () => {
                 <div className="font-medium text-gray-600">Hotels</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg">
-                <div className="text-4xl font-bold text-india-blue mb-2">₹15M</div>
-                <div className="font-medium text-gray-600">Monthly Payouts</div>
+                <div className="text-4xl font-bold text-india-blue mb-2">20L+</div>
+                <div className="font-medium text-gray-600">Restaurants</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg">
-                <div className="text-4xl font-bold text-india-saffron mb-2">20L+</div>
-                <div className="font-medium text-gray-600">Restaurants</div>
+                <div className="text-4xl font-bold text-india-saffron mb-2">3L+</div>
+                <div className="font-medium text-gray-600">Catering Services</div>
               </div>
             </div>
           </div>
