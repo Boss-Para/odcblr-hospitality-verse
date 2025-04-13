@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HomeScene from "@/components/HomeScene";
@@ -9,8 +10,15 @@ import InvestorPitchSection from "@/components/InvestorPitchSection";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { ChevronDown, ArrowRight, Hotel, MapPin, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const Index = () => {
   useEffect(() => {
@@ -38,13 +46,14 @@ const Index = () => {
     <div className="min-h-screen">
       <Navbar />
       
-      <section className="w-full h-[300px] relative overflow-hidden">
+      {/* Background Image Section */}
+      <section className="w-full h-[500px] relative overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5')",
+            backgroundImage: "url('/lovable-uploads/a9a230d3-dfc8-463f-bd51-aaf31e59927d.png')",
             backgroundAttachment: "fixed",
-            filter: "brightness(0.6)"
+            filter: "brightness(0.7)"
           }}
         />
         <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
@@ -52,7 +61,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold mb-4"
+            className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg"
           >
             OdcBlR
           </motion.h1>
@@ -60,10 +69,95 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl max-w-2xl mx-auto"
+            className="text-xl md:text-2xl max-w-2xl mx-auto drop-shadow-lg"
           >
             India's first blockchain-powered hospitality gig platform connecting students to opportunities
           </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-wrap justify-center gap-6 mt-10"
+          >
+            <div className="flex items-center bg-black/40 backdrop-blur-sm p-4 rounded-lg">
+              <Hotel className="w-8 h-8 text-india-saffron mr-3" />
+              <div>
+                <h3 className="font-bold">1L+ Hotels</h3>
+                <p className="text-sm opacity-80">Connected nationwide</p>
+              </div>
+            </div>
+            <div className="flex items-center bg-black/40 backdrop-blur-sm p-4 rounded-lg">
+              <Star className="w-8 h-8 text-india-saffron mr-3" />
+              <div>
+                <h3 className="font-bold">5-Star Experience</h3>
+                <p className="text-sm opacity-80">Premium opportunities</p>
+              </div>
+            </div>
+            <div className="flex items-center bg-black/40 backdrop-blur-sm p-4 rounded-lg">
+              <MapPin className="w-8 h-8 text-india-saffron mr-3" />
+              <div>
+                <h3 className="font-bold">Pan-India</h3>
+                <p className="text-sm opacity-80">Jobs across the country</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+      
+      {/* Hotel Showcase Carousel */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-10">Featured Hotel Partners</h2>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {[
+                {
+                  name: "Grand Hyatt Mumbai",
+                  image: "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+                  jobs: "12 positions available"
+                },
+                {
+                  name: "Taj Palace New Delhi",
+                  image: "https://images.unsplash.com/photo-1582719508461-905c673771fd",
+                  jobs: "8 positions available"
+                },
+                {
+                  name: "Leela Palace Bangalore",
+                  image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa",
+                  jobs: "15 positions available"
+                },
+                {
+                  name: "JW Marriott Kolkata",
+                  image: "https://images.unsplash.com/photo-1568084680786-a84f91d1153c",
+                  jobs: "9 positions available"
+                }
+              ].map((hotel, index) => (
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="bg-white rounded-xl overflow-hidden shadow-lg h-full">
+                    <div
+                      className="h-48 bg-cover bg-center"
+                      style={{ backgroundImage: `url(${hotel.image})` }}
+                    />
+                    <div className="p-6">
+                      <h3 className="font-bold text-xl mb-2">{hotel.name}</h3>
+                      <p className="text-india-green">{hotel.jobs}</p>
+                      <Button variant="outline" className="w-full mt-4">
+                        View Opportunities
+                      </Button>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="-left-4 md:-left-6" />
+            <CarouselNext className="-right-4 md:-right-6" />
+          </Carousel>
         </div>
       </section>
       
