@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HomeScene from "@/components/HomeScene";
@@ -14,7 +13,6 @@ import { ChevronDown, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
-  // Welcome toast on initial load
   useEffect(() => {
     const timer = setTimeout(() => {
       toast.success("Welcome to OdcBlR", {
@@ -30,7 +28,7 @@ const Index = () => {
     if (element) {
       const offsetTop = element.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({
-        top: offsetTop - 80, // Offset for navbar height
+        top: offsetTop - 80,
         behavior: "smooth"
       });
     }
@@ -38,14 +36,40 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Navbar */}
       <Navbar />
       
-      {/* Hero Section with 3D Scene - reduced to 80vh */}
+      <section className="w-full h-[300px] relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5')",
+            backgroundAttachment: "fixed",
+            filter: "brightness(0.6)"
+          }}
+        />
+        <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-4xl md:text-5xl font-bold mb-4"
+          >
+            OdcBlR
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-xl md:text-2xl max-w-2xl mx-auto"
+          >
+            India's first blockchain-powered hospitality gig platform connecting students to opportunities
+          </motion.p>
+        </div>
+      </section>
+      
       <section className="h-[80vh] relative">
         <HomeScene />
         
-        {/* Hero Content Overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="container mx-auto px-4 text-center">
             <motion.div
@@ -54,7 +78,6 @@ const Index = () => {
               transition={{ duration: 0.8 }}
               className="relative"
             >
-              {/* Gold gradient background for logo and text */}
               <div 
                 className="absolute inset-0 -mx-4 -my-6 md:-my-8 rounded-2xl bg-gradient-to-r from-india-saffron/20 to-india-blue/20 backdrop-blur-sm"
                 style={{
@@ -85,7 +108,6 @@ const Index = () => {
           </div>
         </div>
         
-        {/* Scroll indicator */}
         <motion.div 
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white flex flex-col items-center"
           animate={{ y: [0, 10, 0] }}
@@ -97,7 +119,6 @@ const Index = () => {
         </motion.div>
       </section>
 
-      {/* Secondary Hero Content with Stats - UPDATED STATISTICS */}
       <section id="hero-content" className="py-16 bg-gradient-to-b from-india-blue/10 to-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -155,7 +176,6 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Content Sections - start immediately after hero content */}
       <div id="features">
         <FeaturesSection />
       </div>
@@ -172,7 +192,6 @@ const Index = () => {
         <InvestorPitchSection />
       </div>
       
-      {/* Footer */}
       <Footer />
     </div>
   );
