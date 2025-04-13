@@ -81,7 +81,7 @@ const Index = () => {
         </motion.div>
       </section>
 
-      {/* Secondary Hero Content with Stats - UPDATED SECTION */}
+      {/* Secondary Hero Content with Stats - UPDATED STATISTICS */}
       <section id="hero-content" className="py-16 bg-gradient-to-b from-india-blue/10 to-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -120,10 +120,10 @@ const Index = () => {
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-xl shadow-lg">
                 <div className="text-4xl font-bold text-india-saffron mb-2">3.5L+</div>
-                <div className="font-medium text-gray-600">Students Registered</div>
+                <div className="font-medium text-gray-600">Students Graduated</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg">
-                <div className="text-4xl font-bold text-india-green mb-2">100K+</div>
+                <div className="text-4xl font-bold text-india-green mb-2">1L+</div>
                 <div className="font-medium text-gray-600">Hotels</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg">

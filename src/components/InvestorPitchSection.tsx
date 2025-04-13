@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -67,9 +67,9 @@ const InvestorForm = () => {
             </div>
             
             <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline" className="mr-2">Cancel</Button>
-              </DialogClose>
+              <Button type="button" variant="outline" onClick={() => setIsOpen(false)} className="mr-2">
+                Cancel
+              </Button>
               <Button type="submit" className="bg-india-blue hover:bg-india-saffron">
                 Submit Inquiry
               </Button>

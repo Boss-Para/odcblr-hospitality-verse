@@ -1,7 +1,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 // Revenue Streams Data
 const revenueStreams = [
@@ -12,7 +12,7 @@ const revenueStreams = [
 ];
 
 // Colors
-const COLORS = ["#FF9933", "#138808", "#000080", "#9c27b0", "#e91e63", "#03a9f4"];
+const COLORS = ["#FF9933", "#138808", "#000080", "#9c27b0"];
 const RADIAN = Math.PI / 180;
 
 const RevenueCard = ({ 
@@ -37,8 +37,6 @@ const RevenueCard = ({
 };
 
 const BusinessPlanSection = () => {
-  const total = revenueStreams.reduce((sum, item) => sum + item.value, 0);
-  
   // Custom label with properly typed parameters
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: {
     cx: number;
@@ -116,7 +114,7 @@ const BusinessPlanSection = () => {
               viewport={{ once: true }}
             >
               <div className="p-4 bg-india-blue text-white rounded-t-xl">
-                <h3 className="font-bold text-xl">Revenue Breakdown</h3>
+                <h3 className="font-bold text-xl">Revenue Streams</h3>
               </div>
               
               <div className="bg-white rounded-b-xl shadow-lg p-6">

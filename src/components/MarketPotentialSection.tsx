@@ -14,7 +14,7 @@ const cityData = [
   { name: "Kolkata", students: 120000, venues: 7000, value: 120000, lat: 22.5, lng: 88.3 },
 ];
 
-// Revenue Data
+// Revenue Data - Updated with accurate numbers
 const revenueData = [
   { name: "Hotels", value: 100000 },
   { name: "Restaurants", value: 2000000 },
@@ -90,7 +90,7 @@ const IndiaMap = ({ activeCity, setActiveCity }: { activeCity: number; setActive
       {cityData.map((city, index) => (
         <motion.div
           key={city.name}
-          className={`absolute h-5 w-5 rounded-full cursor-pointer z-20 transform -translate-x-1/2 -translate-y-1/2`}
+          className="absolute h-5 w-5 rounded-full cursor-pointer z-20 transform -translate-x-1/2 -translate-y-1/2"
           style={{
             top: `${(1 - (city.lat - 10) / 30) * 90}%`,
             left: `${((city.lng - 70) / 20) * 80 + 10}%`,
@@ -164,7 +164,7 @@ const IndiaMap = ({ activeCity, setActiveCity }: { activeCity: number; setActive
   );
 };
 
-// New Payment Guarantee Component
+// Redesigned Payment Guarantee Component
 const PaymentGuarantee = () => {
   return (
     <motion.div 
@@ -177,52 +177,76 @@ const PaymentGuarantee = () => {
         Payment Guarantee System
       </h3>
       
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-6">
         <div className="flex items-start">
-          <div className="bg-india-saffron/10 p-3 rounded-full mr-4 flex-shrink-0">
-            <Clock className="h-6 w-6 text-india-saffron" />
+          <div className="bg-india-saffron/20 p-4 rounded-full mr-4 flex-shrink-0 shadow-md">
+            <Clock className="h-8 w-8 text-india-saffron" />
           </div>
           <div>
-            <h4 className="font-bold">Real-time Payment Tracking</h4>
-            <p className="text-gray-600 text-sm">Monitor your earnings in real-time with blockchain verification</p>
+            <h4 className="font-bold text-lg">Real-time Payment Tracking</h4>
+            <p className="text-gray-600">Monitor your earnings in real-time with blockchain verification</p>
+            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <motion.div 
+                className="bg-india-saffron h-2 rounded-full" 
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 2,
+                  ease: "linear"
+                }}
+              />
+            </div>
           </div>
         </div>
         
         <div className="flex items-start">
-          <div className="bg-india-green/10 p-3 rounded-full mr-4 flex-shrink-0">
-            <Timer className="h-6 w-6 text-india-green" />
+          <div className="bg-india-green/20 p-4 rounded-full mr-4 flex-shrink-0 shadow-md">
+            <Timer className="h-8 w-8 text-india-green" />
           </div>
           <div>
-            <h4 className="font-bold">Automated Escrow Release</h4>
-            <p className="text-gray-600 text-sm">Funds are released automatically based on shift completion verification</p>
+            <h4 className="font-bold text-lg">Automated Escrow Release</h4>
+            <p className="text-gray-600">Funds are released automatically based on shift completion verification</p>
+            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <motion.div 
+                className="bg-india-green h-2 rounded-full" 
+                initial={{ width: "0%" }}
+                animate={{ width: "75%" }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 3,
+                  ease: "easeInOut"
+                }}
+              />
+            </div>
           </div>
         </div>
         
         <div className="flex items-start">
-          <div className="bg-india-blue/10 p-3 rounded-full mr-4 flex-shrink-0">
-            <Shield className="h-6 w-6 text-india-blue" />
+          <div className="bg-india-blue/20 p-4 rounded-full mr-4 flex-shrink-0 shadow-md">
+            <Shield className="h-8 w-8 text-india-blue" />
           </div>
           <div>
-            <h4 className="font-bold">Dispute Resolution</h4>
-            <p className="text-gray-600 text-sm">Fair and transparent system for resolving payment disputes</p>
+            <h4 className="font-bold text-lg">Dispute Resolution</h4>
+            <p className="text-gray-600">Fair and transparent system for resolving payment disputes</p>
+            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <motion.div 
+                className="bg-india-blue h-2 rounded-full" 
+                initial={{ width: "0%" }}
+                animate={{ width: "90%" }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 4,
+                  ease: "easeOut"
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
       
-      <div className="mt-4">
-        <div className="w-full bg-gray-200 rounded-full h-2 mb-1">
-          <motion.div 
-            className="bg-india-saffron h-2 rounded-full" 
-            initial={{ width: "0%" }}
-            animate={{ width: "100%" }}
-            transition={{ 
-              repeat: Infinity,
-              duration: 3,
-              ease: "linear"
-            }}
-          />
-        </div>
-        <p className="text-xs text-gray-500 text-center">Average payment processing time: 24 hours</p>
+      <div className="mt-6 text-center">
+        <p className="text-india-blue font-bold">Average payment processing time: <span className="text-india-saffron">24 hours</span></p>
       </div>
     </motion.div>
   );
@@ -374,9 +398,9 @@ const MarketPotentialSection = () => {
                           ))}
                         </Pie>
                         <Tooltip formatter={(value, name) => {
-                          if (name === "Hotels") return [`${(value/1000).toFixed(0)}K Hotels`, name];
-                          if (name === "Restaurants") return [`${(value/1000000).toFixed(1)}M Restaurants`, name];
-                          if (name === "Catering") return [`${(value/1000).toFixed(0)}K Catering Services`, name];
+                          if (name === "Hotels") return [`~1,00,000 Hotels`, name];
+                          if (name === "Restaurants") return [`~20,00,000 Restaurants`, name];
+                          if (name === "Catering") return [`~3,00,000 to 5,00,000 Services`, name];
                           return [value, name];
                         }} />
                       </PieChart>
@@ -458,7 +482,7 @@ const MarketPotentialSection = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-india-blue font-bold">Total Addressable Market:</p>
-                    <p className="text-2xl font-bold text-india-saffron">3.5L+ Students • 2M+ Venues</p>
+                    <p className="text-2xl font-bold text-india-saffron">3.5L+ Students • 21L+ Venues</p>
                   </div>
                   <div className="flex items-center bg-white/80 p-3 rounded-lg shadow-md">
                     <TrendingUp className="h-8 w-8 text-india-green mr-2" />

@@ -2,16 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle
-} from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,7 +39,7 @@ const Navbar = () => {
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-md py-2"
-          : "bg-black/40 backdrop-blur-md py-4"
+          : "bg-black/70 backdrop-blur-md py-4"
       }`}
     >
       <div className="container mx-auto px-4">
@@ -99,7 +89,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu - Enhanced visibility */}
+      {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white shadow-lg absolute top-full left-0 right-0 p-4 flex flex-col space-y-4">
           <MobileNavLink onClick={() => scrollToSection("features")}>
